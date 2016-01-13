@@ -15,10 +15,10 @@ function! ghcmod#getHaskellIdentifier() "{{{
 endfunction "}}}
 
 function! ghcmod#info(fexp, path, module) "{{{
-  let l:cmd = ghcmod#build_command(['info', "-b \n", a:path, a:module, a:fexp])
+  let l:cmd = ghcmod#build_command(['info', a:path, a:fexp])
   let l:output = ghcmod#system(l:cmd)
   " Remove trailing newlines to prevent empty lines
-  let l:output = substitute(l:output, '\n*$', '', '')
+  "let l:output = substitute(l:output, '\n*$', '', '')
   return s:remove_dummy_prefix(l:output)
 endfunction "}}}
 
@@ -47,7 +47,7 @@ function! ghcmod#sig(line, col, path, module) "{{{
 endfunction "}}}
 
 function! ghcmod#type(line, col, path, module) "{{{
-  let l:cmd = ghcmod#build_command(['type', a:path, a:module, a:line, a:col])
+  let l:cmd = ghcmod#build_command(['type', a:path, a:line, a:col])
   let l:output = ghcmod#system(l:cmd)
   let l:types = []
   for l:line in split(l:output, '\n')
